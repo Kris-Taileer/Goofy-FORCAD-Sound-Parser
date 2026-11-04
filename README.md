@@ -56,28 +56,12 @@ Put clips in `sounds/<event>/`. SIREN chooses a clip at random and avoids repeat
 
 To override an event, copy [siren.example.toml](siren.example.toml) to `siren.local.toml` and pass `--config siren.local.toml`. Each entry can point to a file or directory. Use `false` to mute the event. Relative paths resolve from the configuration file’s directory.
 
-## Local ForcAD lab
-
-The lab requires Git, [uv](https://docs.astral.sh/uv/), PostgreSQL (`initdb`, `postgres`, `pg_isready`), and Valkey (`valkey-server`, `valkey-cli`) on your `PATH`.
-
-```bash
-LAB=$(mktemp -d /tmp/siren-forcad.XXXXXX)
-./tools/forcad-lab/setup "$LAB"
-printf '%s\n' "$LAB"
-"$LAB/start"
-```
-
-Leave the lab running. In a second terminal, activate the SIREN environment and run `siren watch http://127.0.0.1:18080/ --team 'SIREN Lab'`. In a third terminal, open the lab directory printed above and trigger one event at a time.
-
-```bash
-./labctl status down
-./labctl status up
-./labctl flag got
-./labctl flag lost
-```
-
-Wait for each change to appear before triggering the next one. The lab uses 10-second rounds. If a port is already in use, set `SIREN_LAB_HTTP_PORT` or `SIREN_LAB_VALKEY_PORT` before running setup.
+## Tests
 
 Run the test suite with `python -m unittest discover -s tests -v`. To include the browser test, set `SIREN_TEST_CHROMIUM` to the path to Chromium.
+
+## Acknowledgments
+
+Thanks to [teebow1e](https://github.com/teebow1e/adctf-scoreboard-parser) for the scoreboard parser that inspired SIREN, and to [Red Cadets](https://github.com/Red-Cadets/beard) for the original Beard project.
 
 [MIT License](LICENSE)
