@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")"
+. ./lab.env
+exec .venv/bin/python labctl.py "$@"

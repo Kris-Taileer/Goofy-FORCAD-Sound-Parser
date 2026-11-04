@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")"
+. ./lab.env
+printf 'ForcAD: %s/ (Ctrl+C для остановки)\n' "$LAB_BOARD_URL"
+exec .venv/bin/python lab.py run

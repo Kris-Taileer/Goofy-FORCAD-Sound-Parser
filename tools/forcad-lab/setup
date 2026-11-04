@@ -1,0 +1,27 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -ne 1 ] || [ ! -d "$1" ] || [ -n "$(ls -A -- "$1")" ]; then
+    printf '%s\n' 'Usage: setup EMPTY_DIRECTORY (for example, a directory created with mktemp -d)' >&2
+    exit 2
+fi
+for command in git uv initdb postgres pg_isready valkey-server valkey-cli; do
+    command -v "$command" >/dev/null || { printf 'Required command: %s\n' "$command" >&2; exit 2; }
+done
+valkey_server=$(command -v valkey-server)
+valkey_cli=$(command -v valkey-cli)
+source_dir=$(CDPATH='' cd -- "$(dirname "$0")" && pwd)
+cd "$1"
+umask 077
+mkdir logs sockets redis flags checkers
+cp "$source_dir"/lab*.py "$source_dir/start" "$source_dir/labctl" .
+cp "$source_dir/checkers/beacon" checkers/
+git init -q ForcAD
+git -C ForcAD remote add origin https://github.com/pomo-mondreganto/ForcAD.git
+git -C ForcAD fetch -q --depth 1 origin 6ce3407be569b7f69f879501c5e2ca79231c1ff9
+git -C ForcAD checkout -q --detach FETCH_HEAD
+uv venv --python 3.11 .venv
+uv pip install --python .venv/bin/python -r ForcAD/backend/requirements.txt
+.venv/bin/python "$source_dir/configure.py" "$valkey_server" "$valkey_cli"
+initdb -D pgdata -U forcad --auth-local=trust --auth-host=scram-sha-256 --no-locale -E UTF8 > logs/initdb.log
+printf 'Старт: %s/start\n' "$PWD"
