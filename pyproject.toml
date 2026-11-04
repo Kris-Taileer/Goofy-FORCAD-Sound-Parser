@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "siren-adctf"
+version = "0.1.0"
+description = "Local sound alerts for Attack/Defense CTF scoreboards"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["beautifulsoup4>=4.12,<5"]
+
+[project.optional-dependencies]
+browser = ["playwright>=1.45,<2"]
+
+[project.scripts]
+siren = "siren.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["siren"]
+
+[sounds]
+service_down = "sounds/service_down"
+service_up = "sounds/service_up"
+service_degraded = "sounds/service_degraded"
+flag_got = "sounds/flag_got"
+flag_lost = "sounds/flag_lost"
+rank_up = "sounds/rank_up"
+rank_down = "sounds/rank_down"

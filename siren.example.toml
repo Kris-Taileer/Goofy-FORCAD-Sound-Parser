@@ -1,0 +1,10 @@
+# По умолчанию звуки берутся из sounds/<событие> рядом с конфигом.
+# Можно переопределить папку или выбрать один файл. Пути считаются от папки конфига.
+[sounds]
+# service_down = "sounds/service_down"
+# service_up = "sounds/service_up"
+# service_degraded = "sounds/service_degraded"
+# flag_got = "sounds/flag_got"
+# flag_lost = "sounds/flag_lost"
+# rank_up = "sounds/rank_up"
+# rank_down = false
