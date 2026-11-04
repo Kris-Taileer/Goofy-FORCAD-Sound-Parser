@@ -1,0 +1,4 @@
+include siren.example.toml
+recursive-include sounds .gitkeep *.aac *.aif *.aiff *.flac *.m4a *.mp3 *.ogg *.opus *.wav *.wma
+graft tools/forcad-lab
+global-exclude *.pyc
