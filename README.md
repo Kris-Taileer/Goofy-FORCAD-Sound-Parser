@@ -1,4 +1,6 @@
-# SIREN
+# Goofy-FORCAD-Sound-Parser (SIREN)
+
+shit that plays funny sounds whatever changes on forcad
 
 SIREN следит за командой на Attack/Defense CTF и озвучивает изменения на устройстве, где запущена утилита. Нужны Python 3.11+, доступ к борде и `ffplay` из FFmpeg в `PATH`. Звук идёт через стандартный аудиовыход устройства.
 
